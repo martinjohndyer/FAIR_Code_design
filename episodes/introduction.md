@@ -150,25 +150,3 @@ Multiple types of scalability can be considered, here are a few examples:
 ## Quizz
 
 ---> Got to [this website](https://www.mentimeter.com/) and enter the following code:
-
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
-
-:::::::::::::::::::::::: solution 
-
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
