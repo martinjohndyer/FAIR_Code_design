@@ -152,9 +152,9 @@ Multiple types of scalability can be considered, here are a few examples:
 ---> Got to [this website](https://www.mentimeter.com/) and enter the following code:
 
 
-::::::::::::::::::::::::::::::::::::: Question 1
+::::::::::::::::::::::::::::::::::::: challenge
 
-## Code #1: 
+Code #1: 
 
 ```
 def process_list(data):
@@ -181,32 +181,4 @@ However, the code will be difficult to maintain because:
 - The purpose and constraints of the function are not documented, making future modifications risky.
 
 :::::::::::::::::::::::::::::::::
-
-
-
-	
-
-::::::::::::::::::::::::::::::::::::: Question 2 
-
-## Code #2: 
-
-```
-def process_list(data):
-    return [x * 2 + 3 for x in data if x % 2 == 0]
-
-#Example usage
-input_data = [1, 2, 3, 4, 5, 6]
-result = process_list(input_data)
-print("processed list:", result)
-
-```
-
-:::::::::::::::::::::::: solution 
-
-
-:::::::::::::::::::::::::::::::::
-
-
-
-
 
