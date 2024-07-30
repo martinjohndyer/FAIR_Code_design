@@ -152,33 +152,23 @@ Multiple types of scalability can be considered, here are a few examples:
 ---> Got to [this website](https://www.mentimeter.com/) and enter the following code:
 
 
-::::::::::::::::::::::::::::::::::::: challenge
+::::::::::::::::::::::::::::::::::::: challenge 
 
-Code #1: 
+## Challenge 1: Can you do it?
 
-```
-def process_list(data):
-    return [x * 2 + 3 for x in data if x % 2 == 0]
+What is the output of this command?
 
-#Example usage
-input_data = [1, 2, 3, 4, 5, 6]
-result = process_list(input_data)
-print("processed list:", result)
-
+```r
+paste("This", "new", "lesson", "looks", "good")
 ```
 
 :::::::::::::::::::::::: solution 
 
-- Readable: The code is readable because it uses a list comprehension that is relatively straightforward to understand for someone familiar with Python.
-- Reusable: The function can be used with any list of integers to filter and transform the data.
-- Scalable: The function uses a list comprehension, which is efficient for processing lists.
-
-However, the code will be difficult to maintain because:
-
-- There are no comments explaining what the function is doing or why it’s doing it.
-- The logic includes "magic numbers" (2 and 3) without any explanation or named constants.
-- There is no error handling, which makes it harder to maintain when unexpected inputs occur.
-- The purpose and constraints of the function are not documented, making future modifications risky.
+## Output
+ 
+```output
+[1] "This new lesson looks good"
+```
 
 :::::::::::::::::::::::::::::::::
 
