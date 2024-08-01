@@ -12,4 +12,5 @@ The lecture then explores some fundamental principles such as DRY, KISS or YAGNI
 
 
 
+[workbench]: https://carpentries.github.io/sandpaper-docs
 
