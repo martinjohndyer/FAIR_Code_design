@@ -24,9 +24,9 @@ print(parser.sections())
 print(parser.has_section('simulation'))
 print(parser.has_section('Finalstate'))
 
-
 ####Get all items in a section
-print(parser.items('simulation'))
+items_in_simulation = parser.items('simulation')
+print(items_in_simulation)
 
 ###And check what are inside the sections
 print(parser['simulation']['time_step']) 
