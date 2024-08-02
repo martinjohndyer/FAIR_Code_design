@@ -25,6 +25,10 @@ print(parser.has_section('simulation'))
 print(parser.has_section('Finalstate'))
 
 ####Get all items in a section
+options_in_simulation = parser.options('simulation')
+print(options_in_simulation)
+
+
 items_in_simulation = parser.items('simulation')
 print(items_in_simulation)
 
