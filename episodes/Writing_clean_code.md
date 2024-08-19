@@ -376,6 +376,8 @@ result = add_two_numbers(5, 10)
 print("Sum of numbers:", result)
 ```
 
+We actually see now that the class or the first function were not used at all in the rest of the code. If that codes stands like this, they can be removed..
+
 :::::::::::::::::::::::::::::::::
 
 
