@@ -24,6 +24,7 @@ exercises: 2
 The DRY Principle states: **“Don’t Repeat Yourself.”** It encourages you to minimize duplication by centralizing similar code patterns. This leads to more readable, maintainable, and scalable code.
 
 Why DRY is it important:
+
 - Improves Readability: Code is clearer when it's not cluttered with repeated logic.
 - Reduces Bugs: If you need to make changes, you only do it in one place, reducing the chance of errors.
 - Saves Time: Updating and testing code is faster when code is organized with minimal duplication.
@@ -106,6 +107,17 @@ It is important to note that prematurly refactoring a code might lead to the une
 
 
 ## Keep it simple, Stupid (KISS) & Curly's Law - Do one Thing
+
+#### Introduction
+
+The **KISS** Principle stands for **“Keep It Simple, Stupid”** and points out that writing simple code should be a primary goal in design. Complex structure often leads to unreadable and error-prone code. This is especially important in research where maintaining code over a long time period is essential.
+
+
+Why **KISS** is important:
+
+- Readability: Simple code is easier to understand. There is a high chance that the person who will read your code the most is yourself, so help your future self.
+- Maintainability: Bug are easier to be found and fixed when each component is simple.
+- Upgrade: A simple code is easier to adapt to changes in the requirements. 
 
 
 ## You aren't gonna need it (YAGNI)
