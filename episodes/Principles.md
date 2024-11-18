@@ -90,6 +90,13 @@ Work on the `calculate_final_price` function to apply the YAGNI principle by rem
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+def calculate_final_price(prices):
+    # Calculate the total with a fixed 10% discount
+    total = sum(prices) * 0.9
+    return f"${total:.2f}"
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 #### Summary
 
