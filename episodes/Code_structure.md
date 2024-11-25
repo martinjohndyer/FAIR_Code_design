@@ -68,6 +68,8 @@ print(result)
 
 :::::::::::: callout
 
+#### Whitespace
+
 If you're used to other programming languages like C or R, you might be surprised to see that
 Python does not use curly braces `{}` to define blocks like functions.
 Instead, Python uses **indentation** to define blocks of code, either with spaces or tabs (known
@@ -223,7 +225,7 @@ print('Its area is', my_rectangle.get_area())
 ```
 ```output
 This rectangle has a width of 10 and a height of 20
-It's area is 200
+Its area is 200
 ```
 :::::::::::: callout
 
@@ -388,7 +390,7 @@ def divide(a, b):
     return a / b
 ```
 
-Now, in another script or module, you can import the `calculator` module and use its functions:
+Now, in another script or module, you can import the `calculator` module and use its functions by using the `import` keyword:
 
 ```python
 """script.py"""
@@ -401,8 +403,6 @@ print(result)
 8
 ```
 
-:::::::::::: callout
-
 You can also import specific functions or classes from a module, rather than importing the
 whole module. This can be useful if you only need one or two functions, as it
 saves some time and can make your code more readable:
@@ -413,7 +413,11 @@ from calculator import add
 result = add(5, 3)
 ```
 
-::::::::::::
+Python comes with a lot of built-in modules that you can import and use in your code, collectively  known as the **Standard Library**. These work in the same way, for instance if you wanted
+trigonometric functions you can do `from math import sin, cos, tan` and then use those functions
+in your code.
+
+#### Running a module as a script
 
 In some cases, you might want a mixture of code that executes when the module is run as a script
 as well as functions and classes that can be imported into other modules. Too keep the two separate,
@@ -444,66 +448,7 @@ import the `add()` function from the `calculator` module, the test code would ru
 out the result.
 
 
-#### The Standard Library
-
-If you've used Python before, you'll know that Python comes with a lot of built-in modules
-that you can import and use in your code known as the **Standard Library**.
-For example, the `math` module contains functions for mathematical operations like trigonometry,
-the `datetime` module contains functions for working with dates and times, the `os` module
-contains functions for interacting with the operating system, and the `random` can be used for
-generating random numbers.
-
-You import these modules in the same way, for example:
-
-```python
-import math
-from random import randint
-
-radius = randint(1, 10)
-area = math.pi * radius ** 2
-```
-
-![Having an large library of modules included with the language was a major selling point when Python was becoming popular (xkcd.com) \n (PS: try typing `import antigravity` in a Python terminal!)](fig/xkcd_import.png){ width=75% }
-
-
-#### The Python Package Index
-
-In addition to the Standard Library, there are hundreds of thousands of third-party modules
-available for Python that you can install and use in your code. These modules are hosted in
-**packages** on the **Python Package Index** (PyPI, https://pypi.org/).
-
-If you are using basic Python on your system you can install these packages using the `pip`
-package manager, which comes with Python. If you are using Anaconda or Miniconda you instead use
-the `conda` command.
-
-```bash
-$ pip install numpy
-```
-```bash
-$ conda install numpy
-```
-
-For example, NumPy (https://numpy.org/) is a popular package for numerical computing in Python,
-and is often used for working with arrays and matrices. Once you have installed a package, you can
-import it into your code in the same way as the Standard Library. Note that we use the alias
-`np` when importing NumPy, as this is a common convention:
-
-```python
-import numpy as np
-
-array = np.array([1, 2, 3, 4, 5])
-array = np.square(array)
-print(array)
-```
-```output
-[ 1  4  9 16 25]
-```
-
-Other popular packages for researchers include `pandas` for data manipulation,
-`matplotlib` for plotting graphs and `scikit-learn` for machine learning.
-
-
-## Creating your own Packages
+## Packages
 
 Once you have a collection of modules that you want to reuse across multiple projects, you can
 organise them into a **package**. A package is a directory containing multiple modules, along with
@@ -615,9 +560,10 @@ manage and maintain the project over time, and will make it easier to reuse the 
 
 ::::::::::::
 
-Once you have your package organised, you can share it with others by uploading it to the Python
-Package Index, or by sharing it on a code hosting platform like GitHub. If you do this there are
-some additional files you should include to make your package more user-friendly, such as a
-a `README` file that explains what the package does and how to use it, and a `LICENSE` file that
-specifies the terms under which the code can be used. How best to share and distribute your code
-will be described in more detail in future sessions.
+Once you have your package organised, you can share it with others by using a code hosting platform
+like GitHub, or uploading it to the **Python Package Index** (PyPI, https://pypi.org/).
+If you do this there are some additional files you should include to make your package more
+user-friendly, such as a `README` file that explains what the package does and how to use it,
+and a `LICENSE` file that specifies the terms under which the code can be used.
+
+How best to share and distribute your code will be described in more detail in future sessions.
