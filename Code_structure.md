@@ -234,7 +234,7 @@ Its area is 200
 In Python, methods that start and end with double underscores are called "dunder" (short
 for "double underscore") or "magic" methods. These methods are special and have specific
 built-in meanings, such as `__init__()` being called when an instance of a class is initialised.
-We'll see another example of a dunder method later in this section.
+We'll see more examples of "dunders" later in this section.
 
 ::::::::::::
 
@@ -452,7 +452,9 @@ out the result.
 
 Once you have a collection of modules that you want to reuse across multiple projects, you can
 organise them into a **package**. A package is a directory containing multiple modules, along with
-a special `__init__.py` file that tells Python that the directory is a package.
+a special `__init__.py` file that tells Python that the directory is a package (this is yet another
+example of a "dunder" being used as a special marker in Python, in this case being used to signify
+that a directory is importable).
 
 For example, you could create a package called `my_package` that contains the `calculator` module
 we defined earlier, as well as a new module called `geometry` that contains functions for working
