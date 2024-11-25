@@ -131,14 +131,18 @@ In the context of Python, *beautiful* means that the code is clean, readable and
 What is this code doing?
 
 ``` python
-print(sum(x**2 for x in range(2, 100) if all(x % d != 0 for d in range(2, int(x**0.5) + 1))))
+result = [x * 2 if x % 2 == 0 else x * 3 for x in range(10) if x % 2 != 1 and x != 4]
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution
 
-This one-liner finds all prime numbers less than 100, squares them, and returns the sum of these squares.
+This one-liner tries to:
+
+- Filter out odd numbers and the number 4.
+- For even numbers, double them.
+- For the rest, triple them.
 
 :::::::::::::::::::::::::::::::::
 
@@ -148,68 +152,76 @@ Beautiful code is aesthetically pleasing because it follows good design principl
 
 
 ::::::::::::::::::::::::::::::::::::: challenge
-Rewrite the following one-liner:
 
-``` python
-words = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape']
-result = [len(word) for word in words if len(word) % 2 == 0 and 'a' in word.lower()]
-```
-
-You will create three functions: `has_even_length`, `contains_letter_a`, `process_words` and you will pass the following list of word `words = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape']`.
- 
+Rewrite the previous one line to make it more understandable
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution
 
 ``` python
-def has_even_length(word):
-    """
-    Check if the length of the word is even.
-    
-    Args:
-        word (str): The word to check.
-        
-    Returns:
-        bool: True if the length of the word is even, False otherwise.
-    """
-    return len(word) % 2 == 0
+result = []
+for x in range(10):
+    if x % 2 == 1 or x == 4:
+        continue
+    if x % 2 == 0:
+        result.append(x * 2)
+    else:
+        result.append(x * 3)
 
-def contains_letter_a(word):
-    """
-    Check if the word contains the letter 'a' (case-insensitive).
-    
-    Args:
-        word (str): The word to check.
-        
-    Returns:
-        bool: True if the word contains 'a', False otherwise.
-    """
-    return 'a' in word.lower()
-
-def process_words(words):
-    """
-    Process a list of words to return the lengths of words that are both even in length and contain the letter 'a'.
-    
-    Args:
-        words (list of str): The list of words to process.
-        
-    Returns:
-        list of int: A list of lengths of words that meet the criteria.
-    """
-    lengths = []
-    for word in words:
-        if has_even_length(word) and contains_letter_a(word):
-            lengths.append(len(word))
-    return lengths
-
-# Example usage:
-words = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape']
-result = process_words(words)
-print(result)  # Output: [5, 6]
+print(result)
 ```
 
+The advantages of this version:
+
+- Clarity: Each part of the logic is isolated—first filtering, then applying the transformation based on conditions.
+- Step-by-Step: It's clear what’s happening at each step without trying to parse it all at once.
+- Debuggable: It’s easier to debug and modify, especially if you need to change one part of the logic.
+- Maintainability: Each step is explicit, making it easier for others (or yourself in the future) to understand.
+
 :::::::::::::::::::::::::::::::::
+
+
+Nevertheless, this does not mean that you should over-complexify your code. While you start to know the language in more details, you will start to learn how it works and it will help you to be concise and efficient:
+
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+Consider the following function:
+
+``` python
+def is_empty(lst):
+    if len(lst) == 0:
+        return True
+    else:
+        return False
+
+lst = []
+print(is_empty(lst))
+```
+
+Rewrite this in two lines.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::: solution
+
+``` python
+lst = []
+print(not lst)
+```
+
+The advantages of this version:
+
+- Readability: It's immediately clear that the code checks if the list is empty.
+- Conciseness: The not operator works directly with lists in Python, making the code more succinct.
+- Simplicity: Eliminates unnecessary conditional checks and additional code.
+
+:::::::::::::::::::::::::::::::::
+
+
+
+
 
 
 ## Sparse is better than dense.
