@@ -1,4 +1,4 @@
-This course has been developed as part of the [FAIR24RS])(https://rse.shef.ac.uk/training/fair4rs/) training program created by the RSE team at the University of Sheffield.
+This course has been developed as part of the [FAIR24RS](https://rse.shef.ac.uk/training/fair4rs/) training program created by the RSE team at the University of Sheffield.
 
 
 Description:
