@@ -17,6 +17,10 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+Coding principles are guidelines and best practices that anybody writing code should follow to write clean, maintainable and efficient code. They enhance code quality and ensure it is readable, reusable and less prone to errors.
+
+
 ## You aren't gonna need it (YAGNI)
 
 ![xkcd.com](fig/xkcd_meme.png){ width=90% }
@@ -24,7 +28,7 @@ exercises: 2
 
 #### Introduction
 
-The principle **YAGNI** stands for "You Aren't Gonna Need It". This principle encourages you yo build only what is needed right now, avoiding adding features or complexity for hypothetical future needs. It comes from Agile programming and aims to reduce spending time and resources on unnecessary code and keep the code clean and understandable.
+The principle **YAGNI** stands for "You Aren't Gonna Need It". This principle encourages you to build only what is needed right now, avoiding adding features for hypothetical future needs. It comes from Agile programming and aims to reduce spending time and resources on unnecessary code and keep the code clean and understandable.
 
 Why **YAGNI** is important:
 
@@ -39,7 +43,30 @@ Let's consider the following instruction: create a function that implements a pe
 Here is a solution that does not respect the YAGNI principle:
  
 ```Python
-def calculate_discount(price, discount_type="percentage", value=10):
+def calculate_discount(price, discount_type="percentage", value=10.0):
+    '''
+    This function applies a discount to a price
+
+    Parameters
+    ----------
+    price   : float
+              Original price
+    discount_type: str
+                   type of discount [percentage of fixed]
+    value:  float
+            discount to be applied
+
+    Return
+    ------
+    discounted_price: float
+                      final price after applying discount
+
+    Raises
+    ------
+    ValueError
+            if the discount type is not 'percentage' or 'fixed'
+
+    '''
     if discount_type == "percentage":
         return price - (price * (value / 100))
     elif discount_type == "fixed":
@@ -52,7 +79,21 @@ In that example, the software engineer has planned for possible other use cases 
 
 ```Python
 def calculate_discount(price, discount_percentage):
-    return price - (price * (discount_percentage / 100))
+    '''
+    Function that applies a discount. The discount is given as a percentage of the original price.
+
+    Parameter
+    ---------
+    price:  float
+            original price
+
+    Return
+    ------
+    final_price: float
+                final price after applying discount
+    '''
+    final_price = price - (price * (discount_percentage / 100))
+    return final_price
 ```
 
 #### Exercise
@@ -137,12 +178,74 @@ Why is the Curly’s Law important?
 - Modularity: Code becomes more modular and organized.
 
 
-#### Applying KISS and Curly's Law
-
-Example 1: Simplifying a Complex Function
+#### Applying KISS and Curly's Law : Simplifying a Complex Function
 
 
-Let's consider a function that processes data by removing missing values, calculating the average, and returning the formatted result. 
+Let's consider a function that compute the area of circles, rectangles and triangles: 
+
+```Python
+def calculate_area(shape, dimensions):
+    '''
+    This function compute the area of a given geometrical shape
+
+
+    Parameters
+    ----------
+    shape   : str
+              shape to consider. Can be rectangle, circle or triangle
+
+    dimensions: list
+                of dimension to consider. For rectangle and triangle you need to give a list
+                of 2 numbers. For circle, you need to pass a list of one quantity (radius).
+
+    Return
+    ------
+    area      : float
+                area of the shape
+
+    Raises
+    ------
+    ValueError
+            if the shape is not recognised
+    '''
+    if shape == "rectangle":
+        area = dimensions[0] * dimensions[1]
+    elif shape == "circle":
+        area = 3.14159 * (dimensions[0] ** 2)
+    elif shape == "triangle":
+        area = 0.5 * dimensions[0] * dimensions[1]
+    else:
+        raise ValueError("Unsupported shape!")
+
+    return area
+        
+area = calculate_area("rectangle", [10, 20])
+```
+
+This function is able to compute the area of each shape. To apply KISS and the Curly's law what you can do is to split this function into three simple independent functions:
+
+
+```Python
+def rectangle_area(length, width):
+    return length * width
+
+def circle_area(radius):
+    return 3.14159 * radius ** 2
+
+def triangle_area(base, height):
+    return 0.5 * base * height
+
+# Simple and clear usage
+area = rectangle_area(10, 20)
+```
+
+In that version, functions are specific and easy to understand and there is no unnecessary complexity in shape management. It is easier to maintain and extend.
+
+#### Exercice
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+Let's consider a function that processes data by removing values, calculating the average and returning a formatted result :
 
 ```Python
 def process_data(data):
@@ -151,53 +254,66 @@ def process_data(data):
 
     average = sum(cleaned_data) / len(cleaned_data)    # Calculate average
 
-    return f"Average: {average:.2f}"   
+    return f"Average: {average:.2f}"  
 ```
 
-This function does three tasks: remove missing values, compute average, formar the result. To apply KISS and the Curly's law what you can do is to split this function into three simple independent functions:
-
-
-```Python
-def remove_missing(data):
-    return [x for x in data if x is not None]
-
-def calculate_average(data):
-    return sum(data) / len(data)
-
-def format_average(average):
-    return f"Average: {average:.2f}"
-
-```
-
-In that version, each function does only one thing. The program is more readable, easier to debug, test or update.
-
-
-#### Exercice
-
-::::::::::::::::::::::::::::::::::::: challenge
-
-Simplify the following code:
-
-```Python
-def check_eligibility(age, member):
-    if age >= 18:
-        if member:
-            return "Eligible"
-        else:
-            return "Not eligible"
-    else:
-        return "Not eligible"
-```
-
+Using KISS and Curly's law, rewrite this code.
 
 :::::::::::::::::::::::: solution
 
 
 ```Python
-def check_eligibility(age, member):
-    if age < 18 or not member:
-        return "Not eligible"
-    return "Eligible"
+def remove_missing(data):
+    '''
+    This function is removing missing data from a list
+    Parameter
+    ---------
+    data   : list
+             list of numbers
+
+    Return
+    ------
+    cleaned_data: list
+                  of data without missing values
+    '''
+    clenaed_data = [x for x in data if x is not None]
+
+    return cleaned_data
+
+
+def calculate_average(data):
+    '''
+    This function computes the average of the input data
+
+    Parameters
+    ----------
+    data   : list
+             of numbers
+
+    Return
+    ------
+    average : float
+              average of the data
+    '''
+    average = sum(data) / len(data)
+
+    return average
+
+def format_average(average):
+    '''
+    Format the number as given in parameter as string.
+
+    Parameter
+    ---------
+    average    : float
+                 number to format
+
+    Return
+    ------
+    formatted_string    : str
+                          of the form 'Average: X.YZ'
+    '''
+    return f"Average: {average:.2f}"
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -214,7 +330,7 @@ def check_eligibility(age, member):
 
 #### Introduction
 
-The DRY Principle states: **“Don’t Repeat Yourself.”** It encourages you to minimize duplication by centralizing similar code patterns. This leads to more readable, maintainable, and scalable code.
+The DRY Principle states: **“Don’t Repeat Yourself.”** It encourages you to minimize duplication by refactoring similar code patterns. This leads to more readable, maintainable, and scalable code.
 
 Why DRY is it important:
 
@@ -309,7 +425,7 @@ for name in names:
 
 **DRY helps you write clear, efficient, and error-resistant code**. Use functions, loops, and constants to reduce repetition. A DRY approach **saves time and effort in the long run**, especially when scaling or debugging code.
 
-It is important to note that prematurly refactoring a code might lead to the unecessary complexity. This is why **DRY** is often associated to the **Rule of Three**. The latter is a guideline suggesting that you should wait until a piece of code is repeated three times before refactoring it. It ensures that you only refactor when a pattern is stable and repeated enough time.
+It is important to note that prematurely refactoring a code might lead to the unnecessary complexity. This is why **DRY** is often associated to the **Rule of Three**. The latter is a guideline suggesting that you should wait until a piece of code is repeated three times before refactoring it. It ensures that you only refactor when a pattern is stable and repeated enough time.
 
 
 
@@ -326,7 +442,7 @@ The **Principle of Least Astonishment (POLA)** states that code should work in a
 
 Why **POLA** is important:
 
-- Usability: When code works as expect ed, users and maintainers are less likely to misuse or misunderstand it.
+- Usability: When code works as expected, users and maintainers are less likely to misuse or misunderstand it.
 - Maintainability: Familiar and predictable patterns make the code easier to maintain and upgrade.
 - Collaboration: Using consistent and intuitive code make it easier for multiple people to work with and develop.
 
@@ -397,28 +513,65 @@ This solution keeps each function's purpose clear.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-Refactor `fetch_records` to make it more predictable and intuitive. Ensure that it consistently returns a single type, separates responsibilities, and uses clear parameter names.
+Refactor `calculate area` to make it more predictable and intuitive. 
 
 
 ```Python
 
-def fetch_records(records, keyword=None, limit=10, format_output=False):
-    # Filter records containing the keyword
-    filtered = [record for record in records if keyword in record]
-    
-    # If only one record is found, return it as a string
-    if len(filtered) == 1:
-        return filtered[0]
-    
-    # Limit the number of records returned
-    limited = filtered[:limit]
-    
-    # Format output as comma-separated values if requested
-    if format_output:
-        return ", ".join(limited)
-    
-    return limited  # Return a list by default
+from math import pi
 
+def calculate_area(shape, a, b=0):
+    if shape == "rectangle":
+        return a * b  # Expects both `a` and `b`
+    elif shape == "circle":
+        return pi * (a ** 2)  # Ignores `b`
+    elif shape == "triangle":
+        return 0.5 * a * b  # Expects `a` as base and `b` as height
+    else:
+        return "Unknown shape"
+
+# Example usage:
+print(calculate_area("rectangle", 5))       
+print(calculate_area("circle", 3, 4))       
+print(calculate_area("triangle", 6, 3))     
+print(calculate_area("hexagon", 5, 5))     
 ```
+
+:::::::::::::::::::::::: solution
+
+
+```Python
+from math import pi
+
+# Specific functions for each shape
+def rectangle_area(length, width):
+    if length <= 0 or width <= 0:
+        return "Error: Length and width must be positive numbers."
+    return length * width
+
+def circle_area(radius):
+    if radius <= 0:
+        return "Error: Radius must be a positive number."
+    return pi * radius ** 2
+
+def triangle_area(base, height):
+    if base <= 0 or height <= 0:
+        return "Error: Base and height must be positive numbers."
+    return 0.5 * base * height
+
+# Example usage
+rect_area = rectangle_area(10, 5)          # Expected: Valid rectangle area
+circle_area_invalid = circle_area(-3)     # Expected: Error message
+tri_area = triangle_area(6, 3)            # Expected: Valid triangle area
+rect_invalid = rectangle_area(10, -5)     # Expected: Error message
+
+# Output results
+print(f"Rectangle Area: {rect_area}")
+print(f"Circle Area: {circle_area_invalid}")
+print(f"Triangle Area: {tri_area}")
+print(f"Invalid Rectangle Area: {rect_invalid}")
+```
+
+:::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
