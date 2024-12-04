@@ -88,9 +88,10 @@ can take multiple parameters, return multiple values, or raise errors if somethi
 Any function acts as a reusable block of code that can be called multiple times within
 your program. Building your code out of small, modular functions makes it easier to read
 and maintain, by not having to repeat the same code multiple times you save space and only need to
-edit the code in one place when making changes. It's also easier to test the output of individual
-functions to make sure they work correctly, rather than having to run the entire program and then
-try to find any errors if it doesn't work correctly.
+edit the code in one place when making changes. It's also easier and more reliable to test the
+output of individual functions to make sure they work correctly, rather than having to run the
+entire program.
+There will be a future session on [Testing and Continuous Integration](https://rse.shef.ac.uk/training/fair4rs/#testing-and-continuous-integration) which will cover this in more detail.
 
 
 #### Scope
@@ -301,9 +302,9 @@ Each orange costs £0.75
 #### Challenge 3
 
 Now, create a `Shop` class that has a property called `stock` that is a list of `Stock` objects.
- The `Shop` class should have a method called `display_stock()` that calls the `display()` method
-  on each item in the `stock` list, and a method called `total_stock_value()` that returns the
-   total value of all items in the `stock` list.
+The `Shop` class should have a method called `display_stock()` that calls the `display()` method
+on each item in the `stock` list, and a method called `get_total_stock_value()` that returns the
+total value of all items in the `stock` list.
 
 Then create a new `Shop` object with the `fruits` list as the input, and call the
 `display_stock()` and `get_total_stock_value()` methods.
@@ -566,6 +567,6 @@ Once you have your package organised, you can share it with others by using a co
 like GitHub, or uploading it to the **Python Package Index** (PyPI, https://pypi.org/).
 If you do this there are some additional files you should include to make your package more
 user-friendly, such as a `README` file that explains what the package does and how to use it,
-and a `LICENSE` file that specifies the terms under which the code can be used.
-
-How best to share and distribute your code will be described in more detail in future sessions.
+and a `LICENSE` file that specifies the terms under which the code can be used. There is another
+session on [Packaging](https://rse.shef.ac.uk/training/fair4rs/#packaging) which will go
+into more detail on how to create and share Python packages.
