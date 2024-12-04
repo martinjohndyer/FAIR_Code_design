@@ -900,7 +900,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-Principles"><p>Content from <a href="Principles.html">Principles of Code design</a></p>
 <hr>
-<p>Last updated on 2024-11-20 |
+<p>Last updated on 2024-12-04 |
 
         <a href="https://github.com/Romain-Thomas-Shef/FAIR_Code_design/edit/main/episodes/Principles.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 12 minutes</p>
@@ -934,6 +934,10 @@ code?</li>
 </div>
 </div>
 </div>
+<p>Coding principles are guidelines and best practices that anybody
+writing code should follow to write clean, maintainable and efficient
+code. They enhance code quality and ensure it is readable, reusable and
+less prone to errors.</p>
 <section><h2 class="section-heading" id="you-arent-gonna-need-it-yagni">You aren’t gonna need it (YAGNI)<a class="anchor" aria-label="anchor" href="#you-arent-gonna-need-it-yagni"></a>
 </h2>
 <hr class="half-width">
@@ -942,11 +946,11 @@ code?</li>
 <h4 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h4>
 <p>The principle <strong>YAGNI</strong> stands for “You Aren’t Gonna
-Need It”. This principle encourages you yo build only what is needed
-right now, avoiding adding features or complexity for hypothetical
-future needs. It comes from Agile programming and aims to reduce
-spending time and resources on unnecessary code and keep the code clean
-and understandable.</p>
+Need It”. This principle encourages you to build only what is needed
+right now, avoiding adding features for hypothetical future needs. It
+comes from Agile programming and aims to reduce spending time and
+resources on unnecessary code and keep the code clean and
+understandable.</p>
 <p>Why <strong>YAGNI</strong> is important:</p>
 <ul>
 <li>Simplicity: By avoiding unnecessary code you will reduce complexity,
@@ -966,13 +970,36 @@ respect the YAGNI principle:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> calculate_discount(price, discount_type<span class="op">=</span><span class="st">"percentage"</span>, value<span class="op">=</span><span class="dv">10</span>):</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="cf">if</span> discount_type <span class="op">==</span> <span class="st">"percentage"</span>:</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>        <span class="cf">return</span> price <span class="op">-</span> (price <span class="op">*</span> (value <span class="op">/</span> <span class="dv">100</span>))</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="cf">elif</span> discount_type <span class="op">==</span> <span class="st">"fixed"</span>:</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>        <span class="cf">return</span> price <span class="op">-</span> value</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Invalid discount type"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> calculate_discount(price, discount_type<span class="op">=</span><span class="st">"percentage"</span>, value<span class="op">=</span><span class="fl">10.0</span>):</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">    This function applies a discount to a price</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">    price   : float</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">              Original price</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">    discount_type: str</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">                   type of discount [percentage of fixed]</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">    value:  float</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">            discount to be applied</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">    discounted_price: float</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">                      final price after applying discount</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">    Raises</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">    ValueError</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="co">            if the discount type is not 'percentage' or 'fixed'</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>    <span class="cf">if</span> discount_type <span class="op">==</span> <span class="st">"percentage"</span>:</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>        <span class="cf">return</span> price <span class="op">-</span> (price <span class="op">*</span> (value <span class="op">/</span> <span class="dv">100</span>))</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="cf">elif</span> discount_type <span class="op">==</span> <span class="st">"fixed"</span>:</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>        <span class="cf">return</span> price <span class="op">-</span> value</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Invalid discount type"</span>)</span></code></pre>
 </div>
 <p>In that example, the software engineer has planned for possible other
 use cases (different type of discount) while not being required. It is
@@ -981,7 +1008,21 @@ an example of over-engineering. A better implementation would be:</p>
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">def</span> calculate_discount(price, discount_percentage):</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="cf">return</span> price <span class="op">-</span> (price <span class="op">*</span> (discount_percentage <span class="op">/</span> <span class="dv">100</span>))</span></code></pre>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">    Function that applies a discount. The discount is given as a percentage of the original price.</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">    Parameter</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">    ---------</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">    price:  float</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">            original price</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">    final_price: float</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">                final price after applying discount</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    final_price <span class="op">=</span> price <span class="op">-</span> (price <span class="op">*</span> (discount_percentage <span class="op">/</span> <span class="dv">100</span>))</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="cf">return</span> final_price</span></code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -1103,40 +1144,71 @@ issues are easier to localise.</li>
 </ul>
 </div>
 <div class="section level4">
-<h4 id="applying-kiss-and-curlys-law">Applying KISS and Curly’s Law<a class="anchor" aria-label="anchor" href="#applying-kiss-and-curlys-law"></a>
+<h4 id="applying-kiss-and-curlys-law-simplifying-a-complex-function">Applying KISS and Curly’s Law : Simplifying a Complex Function<a class="anchor" aria-label="anchor" href="#applying-kiss-and-curlys-law-simplifying-a-complex-function"></a>
 </h4>
-<p>Example 1: Simplifying a Complex Function</p>
-<p>Let’s consider a function that processes data by removing missing
-values, calculating the average, and returning the formatted result.</p>
+<p>Let’s consider a function that compute the area of circles,
+rectangles and triangles:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> process_data(data):</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    cleaned_data <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]  <span class="co"># Remove missing values</span></span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> calculate_area(shape, dimensions):</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">    This function compute the area of a given geometrical shape</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    average <span class="op">=</span> <span class="bu">sum</span>(cleaned_data) <span class="op">/</span> <span class="bu">len</span>(cleaned_data)    <span class="co"># Calculate average</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Average: </span><span class="sc">{</span>average<span class="sc">:.2f}</span><span class="ss">"</span>   </span></code></pre>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">    shape   : str</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">              shape to consider. Can be rectangle, circle or triangle</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">    dimensions: list</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">                of dimension to consider. For rectangle and triangle you need to give a list</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">                of 2 numbers. For circle, you need to pass a list of one quantity (radius).</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">    area      : float</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">                area of the shape</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">    Raises</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">    ValueError</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">            if the shape is not recognised</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>    <span class="cf">if</span> shape <span class="op">==</span> <span class="st">"rectangle"</span>:</span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>        area <span class="op">=</span> dimensions[<span class="dv">0</span>] <span class="op">*</span> dimensions[<span class="dv">1</span>]</span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>    <span class="cf">elif</span> shape <span class="op">==</span> <span class="st">"circle"</span>:</span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>        area <span class="op">=</span> <span class="fl">3.14159</span> <span class="op">*</span> (dimensions[<span class="dv">0</span>] <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>    <span class="cf">elif</span> shape <span class="op">==</span> <span class="st">"triangle"</span>:</span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>        area <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> dimensions[<span class="dv">0</span>] <span class="op">*</span> dimensions[<span class="dv">1</span>]</span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Unsupported shape!"</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a>    <span class="cf">return</span> area</span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a>        </span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a>area <span class="op">=</span> calculate_area(<span class="st">"rectangle"</span>, [<span class="dv">10</span>, <span class="dv">20</span>])</span></code></pre>
 </div>
-<p>This function does three tasks: remove missing values, compute
-average, formar the result. To apply KISS and the Curly’s law what you
-can do is to split this function into three simple independent
-functions:</p>
+<p>This function is able to compute the area of each shape. To apply
+KISS and the Curly’s law what you can do is to split this function into
+three simple independent functions:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> remove_missing(data):</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="cf">return</span> [x <span class="cf">for</span> x <span class="kw">in</span> data <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> rectangle_area(length, width):</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="cf">return</span> length <span class="op">*</span> width</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="kw">def</span> calculate_average(data):</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(data) <span class="op">/</span> <span class="bu">len</span>(data)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="kw">def</span> circle_area(radius):</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">3.14159</span> <span class="op">*</span> radius <span class="op">**</span> <span class="dv">2</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="kw">def</span> format_average(average):</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Average: </span><span class="sc">{</span>average<span class="sc">:.2f}</span><span class="ss">"</span></span></code></pre>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="kw">def</span> triangle_area(base, height):</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> base <span class="op">*</span> height</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co"># Simple and clear usage</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>area <span class="op">=</span> rectangle_area(<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre>
 </div>
-<p>In that version, each function does only one thing. The program is
-more readable, easier to debug, test or update.</p>
+<p>In that version, functions are specific and easy to understand and
+there is no unnecessary complexity in shape management. It is easier to
+maintain and extend.</p>
 </div>
 <div class="section level4">
 <h4 id="exercice">Exercice<a class="anchor" aria-label="anchor" href="#exercice"></a>
@@ -1148,19 +1220,20 @@ more readable, easier to debug, test or update.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>Simplify the following code:</p>
+<p>Let’s consider a function that processes data by removing values,
+calculating the average and returning a formatted result :</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">def</span> check_eligibility(age, member):</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="cf">if</span> age <span class="op">&gt;=</span> <span class="dv">18</span>:</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>        <span class="cf">if</span> member:</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"Eligible"</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">"Not eligible"</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Not eligible"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">def</span> process_data(data):</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    cleaned_data <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]  <span class="co"># Remove missing values</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    average <span class="op">=</span> <span class="bu">sum</span>(cleaned_data) <span class="op">/</span> <span class="bu">len</span>(cleaned_data)    <span class="co"># Calculate average</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Average: </span><span class="sc">{</span>average<span class="sc">:.2f}</span><span class="ss">"</span>  </span></code></pre>
 </div>
+<p>Using KISS and Curly’s law, rewrite this code.</p>
 </div>
 </div>
 </div>
@@ -1174,10 +1247,57 @@ more readable, easier to debug, test or update.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> check_eligibility(age, member):</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="cf">if</span> age <span class="op">&lt;</span> <span class="dv">18</span> <span class="kw">or</span> <span class="kw">not</span> member:</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Not eligible"</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Eligible"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> remove_missing(data):</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">    This function is removing missing data from a list</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">    Parameter</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">    ---------</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">    data   : list</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">             list of numbers</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">    cleaned_data: list</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">                  of data without missing values</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    clenaed_data <span class="op">=</span> [x <span class="cf">for</span> x <span class="kw">in</span> data <span class="cf">if</span> x <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    <span class="cf">return</span> cleaned_data</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="kw">def</span> calculate_average(data):</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">    This function computes the average of the input data</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">    data   : list</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">             of numbers</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">    average : float</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">              average of the data</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>    average <span class="op">=</span> <span class="bu">sum</span>(data) <span class="op">/</span> <span class="bu">len</span>(data)</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a>    <span class="cf">return</span> average</span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="kw">def</span> format_average(average):</span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">    Format the number as given in parameter as string.</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">    Parameter</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="co">    ---------</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="co">    average    : float</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="co">                 number to format</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="co">    Return</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="co">    ------</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="co">    formatted_string    : str</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="co">                          of the form 'Average: X.YZ'</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"Average: </span><span class="sc">{</span>average<span class="sc">:.2f}</span><span class="ss">"</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1203,7 +1323,7 @@ maintainability and testability.</li>
 <h4 id="introduction-2">Introduction<a class="anchor" aria-label="anchor" href="#introduction-2"></a>
 </h4>
 <p>The DRY Principle states: <strong>“Don’t Repeat Yourself.”</strong>
-It encourages you to minimize duplication by centralizing similar code
+It encourages you to minimize duplication by refactoring similar code
 patterns. This leads to more readable, maintainable, and scalable
 code.</p>
 <p>Why DRY is it important:</p>
@@ -1328,9 +1448,9 @@ Hello, Charlie!</code></pre>
 code</strong>. Use functions, loops, and constants to reduce repetition.
 A DRY approach <strong>saves time and effort in the long run</strong>,
 especially when scaling or debugging code.</p>
-<p>It is important to note that prematurly refactoring a code might lead
-to the unecessary complexity. This is why <strong>DRY</strong> is often
-associated to the <strong>Rule of Three</strong>. The latter is a
+<p>It is important to note that prematurely refactoring a code might
+lead to the unnecessary complexity. This is why <strong>DRY</strong> is
+often associated to the <strong>Rule of Three</strong>. The latter is a
 guideline suggesting that you should wait until a piece of code is
 repeated three times before refactoring it. It ensures that you only
 refactor when a pattern is stable and repeated enough time.</p>
@@ -1347,7 +1467,7 @@ maintainers. POLA encourages you to design code that aligns with common
 expectations.</p>
 <p>Why <strong>POLA</strong> is important:</p>
 <ul>
-<li>Usability: When code works as expect ed, users and maintainers are
+<li>Usability: When code works as expected, users and maintainers are
 less likely to misuse or misunderstand it.</li>
 <li>Maintainability: Familiar and predictable patterns make the code
 easier to maintain and upgrade.</li>
@@ -1427,36 +1547,80 @@ into two different functions:</p>
 <div class="section level3">
 <h3 id="exercice-1">Exercice<a class="anchor" aria-label="anchor" href="#exercice-1"></a>
 </h3>
-<div id="discussion1" class="callout discussion">
+<div id="challenge4" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>Refactor <code>fetch_records</code> to make it more predictable and
-intuitive. Ensure that it consistently returns a single type, separates
-responsibilities, and uses clear parameter names.</p>
+<p>Refactor <code>calculate area</code> to make it more predictable and
+intuitive.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="kw">def</span> fetch_records(records, keyword<span class="op">=</span><span class="va">None</span>, limit<span class="op">=</span><span class="dv">10</span>, format_output<span class="op">=</span><span class="va">False</span>):</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>    <span class="co"># Filter records containing the keyword</span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>    filtered <span class="op">=</span> [record <span class="cf">for</span> record <span class="kw">in</span> records <span class="cf">if</span> keyword <span class="kw">in</span> record]</span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>    </span>
-<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>    <span class="co"># If only one record is found, return it as a string</span></span>
-<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(filtered) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>        <span class="cf">return</span> filtered[<span class="dv">0</span>]</span>
-<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    </span>
-<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>    <span class="co"># Limit the number of records returned</span></span>
-<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>    limited <span class="op">=</span> filtered[:limit]</span>
-<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>    </span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>    <span class="co"># Format output as comma-separated values if requested</span></span>
-<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>    <span class="cf">if</span> format_output:</span>
-<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">", "</span>.join(limited)</span>
-<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>    </span>
-<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>    <span class="cf">return</span> limited  <span class="co"># Return a list by default</span></span></code></pre>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="kw">def</span> calculate_area(shape, a, b<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>    <span class="cf">if</span> shape <span class="op">==</span> <span class="st">"rectangle"</span>:</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">*</span> b  <span class="co"># Expects both `a` and `b`</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    <span class="cf">elif</span> shape <span class="op">==</span> <span class="st">"circle"</span>:</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>        <span class="cf">return</span> pi <span class="op">*</span> (a <span class="op">**</span> <span class="dv">2</span>)  <span class="co"># Ignores `b`</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>    <span class="cf">elif</span> shape <span class="op">==</span> <span class="st">"triangle"</span>:</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> a <span class="op">*</span> b  <span class="co"># Expects `a` as base and `b` as height</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Unknown shape"</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co"># Example usage:</span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="bu">print</span>(calculate_area(<span class="st">"rectangle"</span>, <span class="dv">5</span>))       </span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="bu">print</span>(calculate_area(<span class="st">"circle"</span>, <span class="dv">3</span>, <span class="dv">4</span>))       </span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="bu">print</span>(calculate_area(<span class="st">"triangle"</span>, <span class="dv">6</span>, <span class="dv">3</span>))     </span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="bu">print</span>(calculate_area(<span class="st">"hexagon"</span>, <span class="dv">5</span>, <span class="dv">5</span>))     </span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># Specific functions for each shape</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="kw">def</span> rectangle_area(length, width):</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>    <span class="cf">if</span> length <span class="op">&lt;=</span> <span class="dv">0</span> <span class="kw">or</span> width <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Error: Length and width must be positive numbers."</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>    <span class="cf">return</span> length <span class="op">*</span> width</span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="kw">def</span> circle_area(radius):</span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>    <span class="cf">if</span> radius <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Error: Radius must be a positive number."</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>    <span class="cf">return</span> pi <span class="op">*</span> radius <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="kw">def</span> triangle_area(base, height):</span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a>    <span class="cf">if</span> base <span class="op">&lt;=</span> <span class="dv">0</span> <span class="kw">or</span> height <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Error: Base and height must be positive numbers."</span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> base <span class="op">*</span> height</span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="co"># Example usage</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a>rect_area <span class="op">=</span> rectangle_area(<span class="dv">10</span>, <span class="dv">5</span>)          <span class="co"># Expected: Valid rectangle area</span></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a>circle_area_invalid <span class="op">=</span> circle_area(<span class="op">-</span><span class="dv">3</span>)     <span class="co"># Expected: Error message</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a>tri_area <span class="op">=</span> triangle_area(<span class="dv">6</span>, <span class="dv">3</span>)            <span class="co"># Expected: Valid triangle area</span></span>
+<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a>rect_invalid <span class="op">=</span> rectangle_area(<span class="dv">10</span>, <span class="op">-</span><span class="dv">5</span>)     <span class="co"># Expected: Error message</span></span>
+<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co"># Output results</span></span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rectangle Area: </span><span class="sc">{</span>rect_area<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Circle Area: </span><span class="sc">{</span>circle_area_invalid<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Triangle Area: </span><span class="sc">{</span>tri_area<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Invalid Rectangle Area: </span><span class="sc">{</span>rect_invalid<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1648,7 +1812,7 @@ code harder to understand and debug.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1812,7 +1976,7 @@ value of the stock.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1875,7 +2039,7 @@ methods.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2133,7 +2297,7 @@ and <code>test_model()</code> functions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Here is an example of how you could organise the code into a
 package:</p>
