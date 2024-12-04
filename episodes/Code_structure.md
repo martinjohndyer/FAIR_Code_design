@@ -302,9 +302,9 @@ Each orange costs £0.75
 #### Challenge 3
 
 Now, create a `Shop` class that has a property called `stock` that is a list of `Stock` objects.
- The `Shop` class should have a method called `display_stock()` that calls the `display()` method
-  on each item in the `stock` list, and a method called `total_stock_value()` that returns the
-   total value of all items in the `stock` list.
+The `Shop` class should have a method called `display_stock()` that calls the `display()` method
+on each item in the `stock` list, and a method called `get_total_stock_value()` that returns the
+total value of all items in the `stock` list.
 
 Then create a new `Shop` object with the `fruits` list as the input, and call the
 `display_stock()` and `get_total_stock_value()` methods.
