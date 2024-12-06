@@ -19,14 +19,14 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+Until now, what we have seen deals with the design of the code itself and how to make it cleaner, more readable and maintainable. Now we are going to see how to reduce the amount of time you change the code while still modify parameters. 
+Research is often based on a trial-error or trial-trial loops. You will often find yourself trying to rerun a code with different parameters to try different configuration. Hard coding this values can lead to inflexibility and error-prone results because it means that you will need to go change the code itself to change the configuration. In addition, and unless you are able to track very well all your trials, you will probably loose track of some of them. 
+
 ## Configuration files
 
 ### Why would need them?
 
-Until now, what we have seen deals with the design of the code itself and how to make it cleaner, more readable and maintainable. Now we are going to see how to actually stop touching while still modifying it. 
-Research is often based on a trial-error or trial-trial loops. You will often find yourself trying to rerun a code with different parameters to try different configuration. Hard coding this values can lead to inflexibility and error-prone results because it means that you will need to go change the code itself to change the configuration. In addition, and unless you are able to track very well all your trials, you will probably loose track of some of them. 
-
-Configuration files will allow you to adjust these parameters outside the code, improving reproducibility and making the code usable across different contexts.
+Configuration files will allow you to adjust some parameters of the code (it can be filenames, directories, values, etc) while actually leaving the code untouched. 
 
 Benefits:
 
@@ -93,7 +93,7 @@ section2:
 YAML files work also with sections and keyword/value pairs.  
 
 
-- TOML files are a bit more recent than the other ones but start to be widely use in Python (a simple example is the setup.py file for installation that became a pyproject.toml file in the last years). They allow structure and data formats. They are quite similar to INI files for the syntax. It is worth mentioning that the library [tomllib]() is part of the Python standard library from python versoin 3.11. 
+- TOML files are a bit more recent than the other ones but start to be widely use in Python (a simple example is the setup.py file for installation that became a pyproject.toml file in the last years). They allow structure and data formats. They are quite similar to INI files for the syntax. It is worth mentioning that the library [tomllib](https://docs.python.org/3/library/tomllib.html) is part of the Python standard library from python versoin 3.11. 
 
 ```
 [section1]
@@ -114,8 +114,6 @@ In the following we will be using INI files. We will start by a simple exercice 
 
 Using the text editor of your choice, create an INI file with three sections: simulation, environment and initial conditions. 
 In the first section, two parameters are given: `time_step` set at 0.01s and `total_time` set at 100.0s. The environment section also has two parameters with `gravity` at 9.81 and `air_resistance` at 0.02. Finally the initial conditions are: `velocity` at 10.0 km/s, `angle` at 45 degrees and `height` at 1m.
-
-Do the same for a TOML file.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -214,9 +212,9 @@ It will also be giving a string...And that can be annoying when you have some ot
 In some occasions it might also be interesting to be able to write configuration file programatically. **Configparser** allows the user to write INI files as well.
 As for reading them, everything starts by importing the module and creating an object:
 
-```
+``` Python
 #Let's import the ConfigParser object directly
-from configparser import ConfigParser 
+import ConfigParser 
 
 # And create a config object
 config = ConfigParser()
@@ -224,7 +222,7 @@ config = ConfigParser()
 
 Creating a configuration is equivalent to creating a dictionaries:
 
-```
+``` Python
 config['simulation'] = {'time_step': 1.0, 'total_time': 200.0}
 config['environment'] = {'gravity': 9.81, 'air_resistance': 0.02}
 config['initial_conditions'] = {'velocity': 5.0, 'angle': 30.0, 'height': 0.5}
@@ -232,14 +230,14 @@ config['initial_conditions'] = {'velocity': 5.0, 'angle': 30.0, 'height': 0.5}
 
 And finally you will have to save it:
 
-```
-with open('config_file_program.ini', 'w') as configfile: ##This open the condif_file_program.ini in write mode
+``` Python
+with open('config_file_program.ini', 'w') as configfile: ##This open the config_file_program.ini in write mode
     config.write(configfile)
 ```
 
 After running that piece of code, you will end with a new file called `config_file_program.ini` with the following content:
 
-```
+``` 
 [simulation]
 time_step = 1.0
 total_time = 200.0
@@ -256,7 +254,53 @@ height = 0.5
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-Using the [tomllib](https://docs.python.org/3/library/tomllib.html) (json[])docmumentation, write a toml file (withthe same element as the previous exercise and read it back).
+Consider the following INI file:
+
+```
+[fruits]
+oranges = 3
+lemons = 6
+apples = 5
+
+[vegetables]
+onions = 1
+asparagus = 2
+beetroots = 4
+```
+
+Read it using the configparser library. Then you will change the number of beetroot to 2 and the number of oranges to 5 and a section 'pastries' with 5 croissants. Then save it back on disk in a different file.
+
+
+
+:::::::::::::::::::::::: solution
+
+
+```Python
+##Import the package
+import configparser
+
+###create the object
+config = configparser.ConfigParser()
+
+##read the file
+config.read('conf_fruit.ini')
+
+
+###Change the values
+config['fruits']['oranges'] = str(5)
+config['vegetables']['beetroots'] = str(2)
+
+###Add a section with a new key/pair value
+config['pastries'] = {'croissants': '5'}
+
+
+##save it back
+with open('new_conf_fruits', 'w') as openconfig:
+    config.write(openconfig)
+```
+
+:::::::::::::::::::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -298,27 +342,25 @@ import argparse
 
 
 ###create the parser object
-parser = argparse.ArgumentParser(prog='My program',
-                                 description='This program is an example of command line interface in Python',
- 				 epilog='Author: R. Thomas, 2024, UoS')
-
+parser = argparse.ArgumentParser(description='This program is an example of command line interface in Python',
+ 				                         epilog='Author: R. Thomas, 2024, UoS')
 
 ```
 
 Once this is written, you need to tell the program to analyse (parse) the arguments passed to program. This is done with the `parse_args()` method:
 
 ```
-args = parser.parse.args()
+args = parser.parse_args()
 ```
 
-If you save everything in a python file (e.g. `commandline.py`) and run `python commandline.py --help` you will see the following on the terminal:
+If you save everything in a python file (e.g. `cli_course.py`) and run `python cli_course.py --help` you will see the following on the terminal:
 
 ```
-usage: My program [-h]
+usage: cli_course.py [-h]
 
 This program is an example of command line interface in Python
 
-options:
+optional arguments:
   -h, --help  show this help message and exit
 
 Author: R. Thomas, 2024, UoS
@@ -332,13 +374,13 @@ You can see that the only option that was implemented is the `help`. It is done 
 
 The `argparse` modules implements the `add_argument` method to add argument. Based on the code we prepared before, you would use if this way:
 
-```
+``` Python
 parser.add_argument(SOMETHING TO ADD HERE)
 ```
 
 Two main types of arguments are possible:
-- Optional arguments: their name start by `-` or `--` and are called in the terminal by their name. They can be ignored by the user.
-- Positional arguments: Their name DO NOT start by `-` or `--`, the user cannot ignore them and they are not to be called by their name (just the value need to be passed).
+* Optional arguments: their name start by `-` or `--` and are called in the terminal by their name. They can be ignored by the user.
+* Positional arguments: Their name DO NOT start by `-` or `--`, the user cannot ignore them and they are not to be called by their name (just the value need to be passed).
 
 For example, you can add this three lines before the `args = parser.parse.args()` in the file `commandline.py` that you created before:
 
@@ -354,7 +396,7 @@ If once again you want to print the help in the terminal `python commandline.py 
 
 
 ```
-usage: My program [-h] [-c COUNT] [-n N] [--max MAX] file file2
+usage: cli_course.py [-h] [-c COUNT] [-n N] [--max MAX] file file2
 
 This program is an example of command line interface in Python
 
@@ -362,7 +404,7 @@ positional arguments:
   file
   file2
 
-options:
+optional arguments:
   -h, --help            show this help message and exit
   -c COUNT, --count COUNT
   -n N
@@ -411,17 +453,17 @@ Author: R. Thomas, 2024, UoS
 
 It is possible to use extra options to define arguments, we list a few here:
 
-- `actions`: this options allows you to do 
+- `action`: this options allows you to do store boolean values.
 
 - `default`: This allows you to define a default value for the argument. In the case thr argument will not be used by the user, the default value will be selected: `parser.add_argument('--color', default='blue')`.
 
 - `type`: By default, the argument will be extracted as strings. Nevertheless, it is possible to have them interpreted as other types using the `type` argument: `parser.add_argument('-i', type=int)`. It the user passes a value that cannot be converted to the expected type an error will be returned.
 
-- `choices`: If you want to restrict the values an argument can take, you can use the `choice` option to add this contraints: `parser.add_argument('--color', choiced=['blue', 'red', 'green'])`. If the user pass 'purple' as value, an error will be raised. 
+- `choices`: If you want to restrict the values an argument can take, you can use the `choice` option to add this contraints: `parser.add_argument('--color', choices=['blue', 'red', 'green'])`. If the user pass 'purple' as value, an error will be raised. 
 
 Finally you must be able to retrieve all the argument values:
 
-####How to get values from the CLI?
+#### How to get values from the CLI?
 
 To get values from the command line interface you need to look into the `args` variable that you defined with the line `args = parser.parse_args()`. Each argument can be called via the structure 'arge.' + argument name:
 
@@ -434,20 +476,15 @@ print(args.max) #direct access to the max optional argument
 
 Below we give a couple of examples of calls to the program with different configurations:
 ```
-[user@user]$ python cli.py path/file1 path/file2 
-Namespace(file='file1', file2='file2', count=None, n=None, max=None)
-file1
-None
-None
+[user@user]$ python cli_course.py file1path/file.py -c 3 --max 5
+usage: cli_course.py [-h] [-c COUNT] [-n N] [--max MAX] file file2
+cli_course.py: error: too few arguments  ####<---One positional argument is missing.
 
-
-[user@user]$ python cli.py file1 file2 --count 3 --max 5
-Namespace(file='file1', file2='file2', count='3', n=None, max='5')
-file1
-3
-5
+[user@user]$ python cli_course.py file1path/file.py file2path/file2.py -c 3
+Namespace(count='3', file='file1path/file.py', file2='file2path/file2.py', max=None, n=None)
+file1path/file.py
+None
 ```
-
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -473,11 +510,11 @@ For this last part of the final lecture we will combine both package we just rev
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-The program that you will create will take an optional configuration file. If not configuration file is given, the program will load an internal one that you can find [here](https://github.com/Romain-Thomas-Shef/FAIR_Code_design/blob/main/final_exercice/config_default.conf) (you need to put this next to your code). To do this you will create an optional argument `--file`. 
+The program that you will create will take an optional configuration file as argument `--file`. If not configuration file is given, the program will load an internal one that you can find [here](https://github.com/Romain-Thomas-Shef/FAIR_Code_design/blob/main/final_exercice/config_default.conf) (you need to put this next to your code). 
 
- arguments:
+other arguments:
 
-- `--name`: This argument requires a name. If it is used, the value given will replace the default name in the configuration file.
-- `--save`: This argument require a directory as value. If used, the configuration is saved into that directory under the name `X_config.ini` where `X` is the name of the user found in the configuration file OR the one given by the `--name` argument.
+- `--name`: This argument requires a (user) name. If it is used by the user, the value given will replace the name in the configuration file.
+- `--save`: This argument require a directory as value. If used, the configuration is saved into that directory under the name `new_config.ini`.
  
 ::::::::::::::::::::::::::::::::::::::::::::::::
