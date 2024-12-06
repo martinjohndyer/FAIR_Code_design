@@ -227,7 +227,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="Principles.html">3. Principles of Code design</a>
+        <a href="Code_structure.html">3. Code structure</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -236,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="Code_structure.html">4. Code structure</a>
+        <a href="Writing_clean_code.html">4. The Zen of Python</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -245,7 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="Writing_clean_code.html">5. The Zen of Python</a>
+        <a href="Principles.html">5. Principles of Code design</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -316,14 +316,14 @@ file</a></li>
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/Writing_clean_code.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/Principles.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/Writing_clean_code.html" rel="prev">
+        <a class="chapter-link" href="../instructor/Principles.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: The Zen of Python
+          Previous: Principles of Code
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
@@ -332,7 +332,7 @@ file</a></li>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Don't touch your code anymore!</h1>
-        <p>Last updated on 2024-11-20 |
+        <p>Last updated on 2024-12-06 |
 
         <a href="https://github.com/Romain-Thomas-Shef/FAIR_Code_design/edit/main/episodes/Dont_touch_your_code_anymore.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -374,22 +374,22 @@ applications.</li>
 </div>
 </div>
 </div>
+<p>Until now, what we have seen deals with the design of the code itself
+and how to make it cleaner, more readable and maintainable. Now we are
+going to see how to reduce the amount of time you change the code while
+still modify parameters. Research is often based on a trial-error or
+trial-trial loops. You will often find yourself trying to rerun a code
+with different parameters to try different configuration. Hard coding
+this values can lead to inflexibility and error-prone results because it
+means that you will need to go change the code itself to change the
+configuration. In addition, and unless you are able to track very well
+all your trials, you will probably loose track of some of them.</p>
 <section><h2 class="section-heading" id="configuration-files">Configuration files<a class="anchor" aria-label="anchor" href="#configuration-files"></a></h2>
 <hr class="half-width"><div class="section level3">
 <h3 id="why-would-need-them">Why would need them?<a class="anchor" aria-label="anchor" href="#why-would-need-them"></a></h3>
-<p>Until now, what we have seen deals with the design of the code itself
-and how to make it cleaner, more readable and maintainable. Now we are
-going to see how to actually stop touching while still modifying it.
-Research is often based on a trial-error or trial-trial loops. You will
-often find yourself trying to rerun a code with different parameters to
-try different configuration. Hard coding this values can lead to
-inflexibility and error-prone results because it means that you will
-need to go change the code itself to change the configuration. In
-addition, and unless you are able to track very well all your trials,
-you will probably loose track of some of them.</p>
-<p>Configuration files will allow you to adjust these parameters outside
-the code, improving reproducibility and making the code usable across
-different contexts.</p>
+<p>Configuration files will allow you to adjust some parameters of the
+code (it can be filenames, directories, values, etc) while actually
+leaving the code untouched.</p>
 <p>Benefits:</p>
 <ul><li>
 <strong>Easier Reproducibility</strong>: By simply changing
@@ -474,8 +474,8 @@ install a third party package called <a href="https://pyyaml.org/" class="extern
 widely use in Python (a simple example is the setup.py file for
 installation that became a pyproject.toml file in the last years). They
 allow structure and data formats. They are quite similar to INI files
-for the syntax. It is worth mentioning that the library <a href="">tomllib</a> is part of the Python standard library from python
-versoin 3.11.</li>
+for the syntax. It is worth mentioning that the library <a href="https://docs.python.org/3/library/tomllib.html" class="external-link">tomllib</a> is
+part of the Python standard library from python versoin 3.11.</li>
 </ul><pre><code>[section1]
 key1 = value1
 key2 = value2
@@ -502,7 +502,6 @@ has two parameters with <code>gravity</code> at 9.81 and
 <code>air_resistance</code> at 0.02. Finally the initial conditions are:
 <code>velocity</code> at 10.0 km/s, <code>angle</code> at 45 degrees and
 <code>height</code> at 1m.</p>
-<p>Do the same for a TOML file.</p>
 </div>
 </div>
 </div>
@@ -628,19 +627,31 @@ value is <code>1</code>, <code>yes</code>, <code>true</code> or
 configuration file programatically. <strong>Configparser</strong> allows
 the user to write INI files as well. As for reading them, everything
 starts by importing the module and creating an object:</p>
-<pre><code>#Let's import the ConfigParser object directly
-from configparser import ConfigParser
-
-# And create a config object
-config = ConfigParser()</code></pre>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#Let's import the ConfigParser object directly</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="im">import</span> ConfigParser </span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co"># And create a config object</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>config <span class="op">=</span> ConfigParser()</span></code></pre>
+</div>
 <p>Creating a configuration is equivalent to creating a
 dictionaries:</p>
-<pre><code>config['simulation'] = {'time_step': 1.0, 'total_time': 200.0}
-config['environment'] = {'gravity': 9.81, 'air_resistance': 0.02}
-config['initial_conditions'] = {'velocity': 5.0, 'angle': 30.0, 'height': 0.5}</code></pre>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>config[<span class="st">'simulation'</span>] <span class="op">=</span> {<span class="st">'time_step'</span>: <span class="fl">1.0</span>, <span class="st">'total_time'</span>: <span class="fl">200.0</span>}</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>config[<span class="st">'environment'</span>] <span class="op">=</span> {<span class="st">'gravity'</span>: <span class="fl">9.81</span>, <span class="st">'air_resistance'</span>: <span class="fl">0.02</span>}</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>config[<span class="st">'initial_conditions'</span>] <span class="op">=</span> {<span class="st">'velocity'</span>: <span class="fl">5.0</span>, <span class="st">'angle'</span>: <span class="fl">30.0</span>, <span class="st">'height'</span>: <span class="fl">0.5</span>}</span></code></pre>
+</div>
 <p>And finally you will have to save it:</p>
-<pre><code>with open('config_file_program.ini', 'w') as configfile: ##This open the condif_file_program.ini in write mode
-    config.write(configfile)</code></pre>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'config_file_program.ini'</span>, <span class="st">'w'</span>) <span class="im">as</span> configfile: <span class="co">##This open the config_file_program.ini in write mode</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    config.write(configfile)</span></code></pre>
+</div>
 <p>After running that piece of code, you will end with a new file called
 <code>config_file_program.ini</code> with the following content:</p>
 <pre><code>[simulation]
@@ -655,16 +666,63 @@ air_resistance = 0.02
 velocity = 5.0
 angle = 30.0
 height = 0.5</code></pre>
-<div id="discussion2" class="callout discussion">
+<div id="challenge1" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
 <div class="callout-inner">
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
-<p>Using the <a href="https://docs.python.org/3/library/tomllib.html" class="external-link">tomllib</a>
-(json[])docmumentation, write a toml file (withthe same element as the
-previous exercise and read it back).</p>
+<p>Consider the following INI file:</p>
+<pre><code>[fruits]
+oranges = 3
+lemons = 6
+apples = 5
+
+[vegetables]
+onions = 1
+asparagus = 2
+beetroots = 4</code></pre>
+<p>Read it using the configparser library. Then you will change the
+number of beetroot to 2 and the number of oranges to 5 and a section
+‘pastries’ with 5 croissants. Then save it back on disk in a different
+file.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">##Import the package</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="im">import</span> configparser</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">###create the object</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>config <span class="op">=</span> configparser.ConfigParser()</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">##read the file</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>config.read(<span class="st">'conf_fruit.ini'</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">###Change the values</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>config[<span class="st">'fruits'</span>][<span class="st">'oranges'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">5</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>config[<span class="st">'vegetables'</span>][<span class="st">'beetroots'</span>] <span class="op">=</span> <span class="bu">str</span>(<span class="dv">2</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">###Add a section with a new key/pair value</span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a>config[<span class="st">'pastries'</span>] <span class="op">=</span> {<span class="st">'croissants'</span>: <span class="st">'5'</span>}</span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">##save it back</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'new_conf_fruits'</span>, <span class="st">'w'</span>) <span class="im">as</span> openconfig:</span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a>    config.write(openconfig)</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -715,32 +773,30 @@ arguments, the main ones are:</p>
 <li>
 <code>epilog</code>: Text displayed at the bottom of the help</li>
 </ul><p>We would proceed as follows:</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co">###import the library</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="im">import</span> argparse</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">###create the parser object</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>parser <span class="op">=</span> argparse.ArgumentParser(prog<span class="op">=</span><span class="st">'My program'</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>                                 description<span class="op">=</span><span class="st">'This program is an example of command line interface in Python'</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a> 				 epilog<span class="op">=</span><span class="st">'Author: R. Thomas, 2024, UoS'</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">###import the library</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="im">import</span> argparse</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">###create the parser object</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>parser <span class="op">=</span> argparse.ArgumentParser(description<span class="op">=</span><span class="st">'This program is an example of command line interface in Python'</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a> 				                         epilog<span class="op">=</span><span class="st">'Author: R. Thomas, 2024, UoS'</span>)</span></code></pre>
 </div>
 <p>Once this is written, you need to tell the program to analyse (parse)
 the arguments passed to program. This is done with the
 <code>parse_args()</code> method:</p>
-<pre><code><span><span class="va">args</span> <span class="op">=</span> <span class="fu">parser.parse.args</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<pre><code><span><span class="va">args</span> <span class="op">=</span> <span class="fu">parser.parse_args</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>If you save everything in a python file
-(e.g. <code>commandline.py</code>) and run
-<code>python commandline.py --help</code> you will see the following on
+(e.g. <code>cli_course.py</code>) and run
+<code>python cli_course.py --help</code> you will see the following on
 the terminal:</p>
-<pre><code>usage: My program [-h]
+<pre><code>usage: cli_course.py [-h]
 
 This program is an example of command line interface in Python
 
-options:
+optional arguments:
   -h, --help  show this help message and exit
 
 Author: R. Thomas, 2024, UoS</code></pre>
@@ -753,29 +809,33 @@ arguments!</p>
 <p>The <code>argparse</code> modules implements the
 <code>add_argument</code> method to add argument. Based on the code we
 prepared before, you would use if this way:</p>
-<pre><code>parser.add_argument(SOMETHING TO ADD HERE)</code></pre>
-<p>Two main types of arguments are possible: - Optional arguments: their
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>parser.add_argument(SOMETHING TO ADD HERE)</span></code></pre>
+</div>
+<p>Two main types of arguments are possible: * Optional arguments: their
 name start by <code>-</code> or <code>--</code> and are called in the
-terminal by their name. They can be ignored by the user. - Positional
+terminal by their name. They can be ignored by the user. * Positional
 arguments: Their name DO NOT start by <code>-</code> or <code>--</code>,
 the user cannot ignore them and they are not to be called by their name
 (just the value need to be passed).</p>
 <p>For example, you can add this three lines before the
 <code>args = parser.parse.args()</code> in the file
 <code>commandline.py</code> that you created before:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>parser.add_argument(<span class="st">'file'</span>)               <span class="co"># positional argument (mandatory)</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>parser.add_argument(<span class="st">'file2'</span>)              <span class="co"># positional argument (mandatory)</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>parser.add_argument(<span class="st">'-c'</span>, <span class="st">'--count'</span>)      <span class="co"># option that takes a value</span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>parser.add_argument(<span class="st">'-n'</span>)                 <span class="co"># option that takes a value</span></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>parser.add_argument(<span class="st">'--max'</span>)              <span class="co"># option that takes a value</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>parser.add_argument(<span class="st">'file'</span>)               <span class="co"># positional argument (mandatory)</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>parser.add_argument(<span class="st">'file2'</span>)              <span class="co"># positional argument (mandatory)</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>parser.add_argument(<span class="st">'-c'</span>, <span class="st">'--count'</span>)      <span class="co"># option that takes a value</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>parser.add_argument(<span class="st">'-n'</span>)                 <span class="co"># option that takes a value</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>parser.add_argument(<span class="st">'--max'</span>)              <span class="co"># option that takes a value</span></span></code></pre>
 </div>
 <p>If once again you want to print the help in the terminal
 <code>python commandline.py --help</code> you will see the following
 being displayed:</p>
-<pre><code>usage: My program [-h] [-c COUNT] [-n N] [--max MAX] file file2
+<pre><code>usage: cli_course.py [-h] [-c COUNT] [-n N] [--max MAX] file file2
 
 This program is an example of command line interface in Python
 
@@ -783,7 +843,7 @@ positional arguments:
   file
   file2
 
-options:
+optional arguments:
   -h, --help            show this help message and exit
   -c COUNT, --count COUNT
   -n N
@@ -805,14 +865,14 @@ program with a small help. As is stands now, displaying the help tells
 you what are the arguments to be used but nothing tell you what they
 actually are. To prevent any confusion, add a one-liner help to your
 argument:</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>parser.add_argument(<span class="st">'file'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'input data file to the program'</span>)          <span class="co"># position argument</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>parser.add_argument(<span class="st">'file2'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Configuration file to the program'</span>)      <span class="co"># position argument</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>parser.add_argument(<span class="st">'-c'</span>, <span class="st">'--count'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Number of counts per iteration'</span>) <span class="co"># option that takes a value</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>parser.add_argument(<span class="st">'-n'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Number of iteration'</span>)                       <span class="co"># option that takes a value</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>parser.add_argument(<span class="st">'--max'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Maximum population per iteration'</span>)       <span class="co"># option that takes a value</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>parser.add_argument(<span class="st">'file'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'input data file to the program'</span>)          <span class="co"># position argument</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>parser.add_argument(<span class="st">'file2'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Configuration file to the program'</span>)      <span class="co"># position argument</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>parser.add_argument(<span class="st">'-c'</span>, <span class="st">'--count'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Number of counts per iteration'</span>) <span class="co"># option that takes a value</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>parser.add_argument(<span class="st">'-n'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Number of iteration'</span>)                       <span class="co"># option that takes a value</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>parser.add_argument(<span class="st">'--max'</span>, <span class="bu">help</span><span class="op">=</span><span class="st">'Maximum population per iteration'</span>)       <span class="co"># option that takes a value</span></span></code></pre>
 </div>
 <p>These short descriptions will be displayed when using the help:</p>
 <pre><code>usage: My program [-h] [-c COUNT] [-n N] [--max MAX] file file2
@@ -833,7 +893,8 @@ options:
 Author: R. Thomas, 2024, UoS</code></pre>
 <p>It is possible to use extra options to define arguments, we list a
 few here:</p>
-<ul><li><p><code>actions</code>: this options allows you to do</p></li>
+<ul><li><p><code>action</code>: this options allows you to do store boolean
+values.</p></li>
 <li><p><code>default</code>: This allows you to define a default value
 for the argument. In the case thr argument will not be used by the user,
 the default value will be selected:
@@ -847,10 +908,12 @@ returned.</p></li>
 <li><p><code>choices</code>: If you want to restrict the values an
 argument can take, you can use the <code>choice</code> option to add
 this contraints:
-<code>parser.add_argument('--color', choiced=['blue', 'red', 'green'])</code>.
+<code>parser.add_argument('--color', choices=['blue', 'red', 'green'])</code>.
 If the user pass ‘purple’ as value, an error will be raised.</p></li>
 </ul><p>Finally you must be able to retrieve all the argument values:</p>
-<p>####How to get values from the CLI?</p>
+</div>
+<div class="section level4">
+<h4 id="how-to-get-values-from-the-cli">How to get values from the CLI?<a class="anchor" aria-label="anchor" href="#how-to-get-values-from-the-cli"></a></h4>
 <p>To get values from the command line interface you need to look into
 the <code>args</code> variable that you defined with the line
 <code>args = parser.parse_args()</code>. Each argument can be called via
@@ -861,19 +924,15 @@ the structure ‘arge.’ + argument name:</p>
 <span><span class="fu">print</span><span class="op">(</span><span class="va">args.max</span><span class="op">)</span> <span class="co">#direct access to the max optional argument</span></span></code></pre>
 <p>Below we give a couple of examples of calls to the program with
 different configurations:</p>
-<pre><code>[user@user]$ python cli.py path/file1 path/file2
-Namespace(file='file1', file2='file2', count=None, n=None, max=None)
-file1
-None
-None
+<pre><code>[user@user]$ python cli_course.py file1path/file.py -c 3 --max 5
+usage: cli_course.py [-h] [-c COUNT] [-n N] [--max MAX] file file2
+cli_course.py: error: too few arguments  ####&lt;---One positional argument is missing.
 
-
-[user@user]$ python cli.py file1 file2 --count 3 --max 5
-Namespace(file='file1', file2='file2', count='3', n=None, max='5')
-file1
-3
-5</code></pre>
-<div id="discussion3" class="callout discussion">
+[user@user]$ python cli_course.py file1path/file.py file2path/file2.py -c 3
+Namespace(count='3', file='file1path/file.py', file2='file2path/file2.py', max=None, n=None)
+file1path/file.py
+None</code></pre>
+<div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -897,7 +956,7 @@ file<a class="anchor" aria-label="anchor" href="#final-exercice-mixing-command-l
 <hr class="half-width"><p>For this last part of the final lecture we will combine both package
 we just reviewed: <code>argparse</code> and <code>configparser</code>.
 Find the instructions below:</p>
-<div id="discussion4" class="callout discussion">
+<div id="discussion3" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -905,21 +964,18 @@ Find the instructions below:</p>
 <h3 class="callout-title">Challenge</h3>
 <div class="callout-content">
 <p>The program that you will create will take an optional configuration
-file. If not configuration file is given, the program will load an
-internal one that you can find <a href="https://github.com/Romain-Thomas-Shef/FAIR_Code_design/blob/main/final_exercice/config_default.conf" class="external-link">here</a>
-(you need to put this next to your code). To do this you will create an
-optional argument <code>--file</code>.</p>
-<p>arguments:</p>
+file as argument <code>--file</code>. If not configuration file is
+given, the program will load an internal one that you can find <a href="https://github.com/Romain-Thomas-Shef/FAIR_Code_design/blob/main/final_exercice/config_default.conf" class="external-link">here</a>
+(you need to put this next to your code).</p>
+<p>other arguments:</p>
 <ul><li>
-<code>--name</code>: This argument requires a name. If it is used,
-the value given will replace the default name in the configuration
-file.</li>
+<code>--name</code>: This argument requires a (user) name. If it is
+used by the user, the value given will replace the name in the
+configuration file.</li>
 <li>
 <code>--save</code>: This argument require a directory as value. If
 used, the configuration is saved into that directory under the name
-<code>X_config.ini</code> where <code>X</code> is the name of the user
-found in the configuration file OR the one given by the
-<code>--name</code> argument.</li>
+<code>new_config.ini</code>.</li>
 </ul></div>
 </div>
 </div>
@@ -929,14 +985,14 @@ any links that you are not going to use.
  -->
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="../instructor/Writing_clean_code.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="../instructor/Principles.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="../instructor/Writing_clean_code.html" rel="prev">
+        <a class="chapter-link" href="../instructor/Principles.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: The Zen of Python
+          Previous: Principles of Code
         </a>
         <a class="chapter-link float-end" href="../instructor/index.html" rel="next">
           Home
@@ -998,8 +1054,8 @@ any links that you are not going to use.
   "url": "https://Romain-Thomas-Shef.github.io/FAIR_Code_design/instructor/Dont_touch_your_code_anymore.html",
   "identifier": "https://Romain-Thomas-Shef.github.io/FAIR_Code_design/instructor/Dont_touch_your_code_anymore.html",
   "dateCreated": "2024-06-11",
-  "dateModified": "2024-11-20",
-  "datePublished": "2024-12-04"
+  "dateModified": "2024-12-06",
+  "datePublished": "2024-12-06"
 }
 
   </script><script>
